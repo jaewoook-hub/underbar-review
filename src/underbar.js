@@ -117,10 +117,11 @@
       _.each(array, function (value) {
         iteratedArr.push(iterator(value));
       });
-      console.log(iteratedArr);
+      var tempArr = [];
       for (var i = 0; i < iteratedArr.length; i++) {
-        if (result.indexOf(iteratedArr[i]) === -1) {
-          result.push(iteratedArr[i]);
+        if (tempArr.indexOf(iteratedArr[i]) === -1) { //[1, 2, 2, 3, 4, 4] [1, 1, 2, 3, 4, 4] [true, false, true, false]
+          tempArr.push(iteratedArr[i]);
+          result.push(array[i]);
         }
       }
     }
