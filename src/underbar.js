@@ -119,7 +119,7 @@
       });
       var tempArr = [];
       for (var i = 0; i < iteratedArr.length; i++) {
-        if (tempArr.indexOf(iteratedArr[i]) === -1) { //[1, 2, 2, 3, 4, 4] [1, 1, 2, 3, 4, 4] [true, false, true, false]
+        if (tempArr.indexOf(iteratedArr[i]) === -1) {
           tempArr.push(iteratedArr[i]);
           result.push(array[i]);
         }
@@ -133,7 +133,11 @@
     // map() is a useful primitive iteration function that works a lot
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
-
+    var iteratedArr = [];
+    _.each(collection, function (value) {
+      iteratedArr.push(iterator(value));
+    });
+    return iteratedArr;
   };
 
   /*
