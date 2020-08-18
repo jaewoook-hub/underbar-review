@@ -179,6 +179,36 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function (collection, iterator, accumulator) {
+    /*
+    var total;
+    if (accumulator === undefined) {
+      var total = collection[0];
+      var noAccumArr = collection.slice(1, collection.length);
+      _.each(noAccumArr, function (accumulator, value) {
+        total = iterator(accumulator, value);
+      });
+    } else {
+      _.each(collection, function (accumulator, value) {
+        total = iterator(accumulator, value);
+      });
+      return total;
+    }
+    */
+
+    var total;
+    var startPoint = 0;
+    if (accumulator === undefined) {
+      total = collection[0];
+      startPoint = 1;
+    } else {
+      total = accumulator;
+    }
+
+    for (var i = startPoint; i < collection.length; i++) {
+      total = iterator(total, collection[i]);
+    }
+
+    return total;
   };
 
   // Determine if the array or object contains a given value (using `===`).
