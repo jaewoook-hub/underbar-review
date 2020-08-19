@@ -195,6 +195,7 @@
     }
     */
 
+    /*
     var total;
     var startPoint = 0;
     if (accumulator === undefined) {
@@ -203,11 +204,30 @@
     } else {
       total = accumulator;
     }
+    _.each(collection.slice(startPoint, collection.length), function (total, value) {
+      total = iterator(total, value);
+    });
 
-    for (var i = startPoint; i < collection.length; i++) {
-      total = iterator(total, collection[i]);
+    return total;
+    */
+
+    var total;
+    var startPoint = 0;
+    if (accumulator === undefined) {
+      total = collection[0];
+      startPoint = 1;
+    } else {
+      total = accumulator;
     }
-
+    if (Array.isArray(collection)) {
+      for (var i = startPoint; i < collection.length; i++) {
+        total = iterator(total, collection[i]);
+      }
+    } else if (typeof collection === 'object') {
+      for (var key in collection) {
+        total = iterator(total, collection[key]);
+      }
+    }
     return total;
   };
 
@@ -227,6 +247,14 @@
   // Determine whether all of the elements match a truth test.
   _.every = function (collection, iterator) {
     // TIP: Try re-using reduce() here.
+    _.reduce(collection, function (accumulator, value) {
+      // if (iterator(value) === false) {
+      //   return false;
+      // } else {
+      //   return true;
+      // }
+      return (accumulator && iterator(value));
+    }, true);
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
